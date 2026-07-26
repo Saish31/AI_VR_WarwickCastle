@@ -12,7 +12,21 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://ai-vr-warwick-castle.vercel.app'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    callback(new Error('Not allowed by CORS'));
+  }
+}));
 app.use(express.json({ limit: '25mb' }));
 
 app.get('/api/health', (req, res) => {
