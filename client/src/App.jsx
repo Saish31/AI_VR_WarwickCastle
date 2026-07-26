@@ -209,7 +209,7 @@ function App() {
     latestQuestionRef.current = '';
 
     try {
-      const res = await fetch('/api/ask', {
+      const res = await fetch('https://ai-vr-warwickcastle.onrender.com/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question: userText, image: captured })
